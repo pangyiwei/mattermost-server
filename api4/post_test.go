@@ -1726,11 +1726,13 @@ func TestGetPostsForChannelAroundLastUnread(t *testing.T) {
 	require.NotNil(t, resp.Error)
 	require.Equal(t, "api.context.invalid_url_param.app_error", resp.Error.Id)
 	require.Equal(t, http.StatusBadRequest, resp.StatusCode)
+	require.Nil(t, posts)
 
 	// All returned posts are all read by the user, since it's created by the user itself.
 	posts, resp = Client.GetPostsAroundLastUnread(userId, channelId, 20, 20, false)
 	CheckNoError(t, resp)
 	require.Len(t, posts.Order, 12, "Should return 12 posts only since there's no unread post")
+	require.NotNil(t, posts)
 
 	// Set channel member's last viewed to 0.
 	// All returned posts are latest posts as if all previous posts were already read by the user.
@@ -1743,12 +1745,14 @@ func TestGetPostsForChannelAroundLastUnread(t *testing.T) {
 
 	posts, resp = Client.GetPostsAroundLastUnread(userId, channelId, 20, 20, false)
 	CheckNoError(t, resp)
+	require.NotNil(t, posts)
 
 	require.Len(t, posts.Order, 12, "Should return 12 posts only since there's no unread post")
 
 	// get the first system post generated before the created posts above
 	posts, resp = Client.GetPostsBefore(th.BasicChannel.Id, post1.Id, 0, 2, "", false)
 	CheckNoError(t, resp)
+	require.NotNil(t, posts)
 	systemPost0 := posts.Posts[posts.Order[0]]
 	postIdNames[systemPost0.Id] = "system post 0"
 	systemPost1 := posts.Posts[posts.Order[1]]

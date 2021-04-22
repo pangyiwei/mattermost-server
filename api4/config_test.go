@@ -102,6 +102,7 @@ func TestGetConfigAnyFlagsAccess(t *testing.T) {
 
 	th.Client.Login(th.BasicUser.Username, th.BasicUser.Password)
 	cfg, resp := th.Client.GetConfig()
+	require.Nil(t, cfg)
 
 	t.Run("Check permissions error with no sysconsole read permission", func(t *testing.T) {
 		CheckForbiddenStatus(t, resp)
@@ -113,6 +114,7 @@ func TestGetConfigAnyFlagsAccess(t *testing.T) {
 
 	cfg, resp = th.Client.GetConfig()
 	CheckNoError(t, resp)
+	require.NotNil(t, cfg)
 	t.Run("Can read value with permission", func(t *testing.T) {
 		assert.NotNil(t, cfg.FeatureFlags)
 	})

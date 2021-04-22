@@ -1748,29 +1748,29 @@ func TestPluginAPISearchPostsInTeamByUser(t *testing.T) {
 		description      string
 		teamID           string
 		userID           string
-		params           model.SearchParameter
 		expectedPostsLen int
+		params           model.SearchParameter
 	}{
 		{
 			"empty params",
 			th.BasicTeam.Id,
 			th.BasicUser.Id,
-			model.SearchParameter{},
 			0,
+			model.SearchParameter{},
 		},
 		{
 			"doesn't match any posts",
 			th.BasicTeam.Id,
 			th.BasicUser.Id,
-			model.SearchParameter{Terms: &unknwonTerm},
 			0,
+			model.SearchParameter{Terms: &unknwonTerm},
 		},
 		{
 			"matched posts",
 			th.BasicTeam.Id,
 			th.BasicUser.Id,
-			model.SearchParameter{Terms: basicPostText},
 			1,
+			model.SearchParameter{Terms: basicPostText},
 		},
 	}
 

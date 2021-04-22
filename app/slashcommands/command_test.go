@@ -174,6 +174,7 @@ func TestHandleCommandResponsePost(t *testing.T) {
 	builtIn = false
 	post, err = th.App.HandleCommandResponsePost(command, args, resp, builtIn)
 	assert.Equal(t, "true", post.GetProp("from_webhook"))
+	assert.Nil(t, err)
 
 	builtIn = true
 
