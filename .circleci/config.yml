@@ -159,7 +159,7 @@ jobs:
   check-mattermost-vet:
     docker:
       - image: mattermost/mattermost-build-server:20201119_golang-1.15.5
-    resource_class: xlarge
+    resource_class: medium
     working_directory: ~/mattermost
     steps:
       - attach_workspace:
